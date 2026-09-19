@@ -7,6 +7,7 @@ primary:
     url: https://www.nucnet.org/
   - name: ANS Nuclear Newswire
     url: https://www.ans.org/news/
+  # IAEA는 목록 페이지가 막힐 때가 있어 실패하면 검색으로 대체 (unreachable 참고)
   - name: IAEA News
     url: https://www.iaea.org/news
   - name: OECD NEA News
@@ -53,24 +54,34 @@ local:
 # ── 국내 ─────────────────────────────────────────────
 # 한국이 주체인 기사(한전·한수원·국내 기업의 해외사업 포함, i-SMR, 정부·원안위 정책, 국내 건설·운영)
 domestic:
-  # 공식 발표 — 있으면 대표 출처로 사용
+  # 공식 발표 — 있으면 대표 출처로 사용. 주소는 2026-09-20 기준으로 접속 확인함.
   official:
-    - { name: 한국수력원자력 보도자료, domain: khnp.co.kr }
-    - { name: 한국전력 보도자료, domain: kepco.co.kr }
-    - { name: 산업통상부 (원전 수출), domain: motie.go.kr }
-    - { name: 기후에너지환경부 (원전 정책), domain: me.go.kr }
-    - { name: 원자력안전위원회, domain: nssc.go.kr }
-    - { name: 한국원자력산업협회, domain: kaif.or.kr }
-    - { name: 혁신형SMR기술개발사업단, domain: i-smr.or.kr }
-  # 매체
+    # 정부 부처·원안위 보도자료는 정책브리핑(korea.kr)에서 한 번에 확인 (부처 홈페이지보다 안정적)
+    - name: 정책브리핑 — 원전 검색
+      url: "https://www.korea.kr/briefing/pressReleaseList.do?pageIndex=1&srchWord=원전"
+      note: 산업통상부·기후에너지환경부·원자력안전위원회 보도자료가 모두 올라옴. srchWord를 SMR·원자력으로 바꿔 한 번 더 확인
+    - name: 한국수력원자력 보도자료
+      url: "https://www.khnp.co.kr/main/selectBbsNttList.do?bbsNo=71&key=2289"
+    - name: 한국전력 보도·설명자료
+      url: "https://www.kepco.co.kr/home/media/newsroom/pr/boardList.do"
+    - name: 한국원자력산업협회
+      domain: kaif.or.kr
+    - name: 혁신형SMR기술개발사업단
+      domain: i-smr.or.kr
+  # 매체 — 접속 가능한 곳만. 아래 차단 목록은 크롤러를 막아 검색·열람이 안 됨.
   outlets:
     - electimes.com        # 전기신문
     - ekn.kr               # 에너지경제
+    - energydaily.co.kr    # 에너지데일리
     - knpnews.com          # 원자력신문
     - energy-news.co.kr    # 에너지신문
     - todayenergy.kr       # 투데이에너지
-    - yna.co.kr            # 연합뉴스
+    - asiae.co.kr          # 아시아경제
     - hankyung.com         # 한국경제
+    - etnews.com           # 전자신문
+    - dt.co.kr             # 디지털타임스
+  blocked:                 # allowed_domains에 넣지 말 것 (에이전트 접근 차단)
+    - yna.co.kr            # 연합뉴스
     - mk.co.kr             # 매일경제
     - biz.chosun.com       # 조선비즈
   # 매일 검색할 문구 (한국어)
@@ -101,6 +112,16 @@ domestic:
 local_english:
   IN: [economictimes.indiatimes.com, thehindubusinessline.com]
   PH: [philstar.com, bworldonline.com]
+
+# 에이전트가 직접 열 수 없는 사이트 (크롤러 차단·유료·빈 페이지). 검색 결과에 떠도 본문 확인용으로 쓰지 말고,
+# 같은 사건을 다룬 다른 출처를 찾는다. 제목·날짜만 참고하는 것은 가능.
+unreachable:
+  - reuters.com
+  - iaea.org            # 목록 페이지가 402를 반환하는 경우가 있음 → IAEA 소식은 검색으로 대체
+  - yna.co.kr
+  - mk.co.kr
+  - biz.chosun.com
+  - nssc.go.kr          # 보도자료 목록이 비어서 로드됨 → 정책브리핑(korea.kr)으로 대체
 
 # 사실 확인 출처로 쓰지 않음 (의견·반핵 요약 사이트, 광고성 시장보고서)
 exclude:
