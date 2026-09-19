@@ -1,30 +1,151 @@
 {
   "date": "2026-09-20",
-  "generated_at": "2026-09-20T00:15:00+09:00",
+  "generated_at": "2026-09-20T10:40:00+09:00",
   "period": {
-    "from": "2026-09-18",
+    "from": "2026-09-11",
     "to": "2026-09-20"
   },
-  "overview_ko": "수집 구간(9/19 토 ~ 9/20 일 새벽)은 주말이라 World Nuclear News·NucNet·ANS 등 주요 전문지의 신규 기사가 없었다. 직전 브리핑이 놓친 9/18자 기사까지 범위를 넓혀 3건만 수습했고, 모두 미국·국제기구의 연료·R&D 동향으로 발주·입찰·벤더 선정 같은 영업 직결 변화는 이번 구간에서 확인되지 않았다. 오늘 브리핑은 평소보다 축소됐다 — 실행 환경의 네트워크 정책이 외부 사이트 직접 열람을 전면 차단해 기사 본문 확인과 현지어(체코·폴란드·일본 등) 수집을 수행하지 못했고, 검색으로만 본 기사 중 게재일을 확인하지 못한 건은 전부 제외했다. 영업 관점: 이번 구간에 대응이 필요한 신규 입찰·정책 변화는 없으며, 네트워크 차단이 풀리는 대로 9/19~9/21 구간을 다시 수집해 관심국 진행 상황을 메워야 한다.",
+  "overview_ko": "주말(9/19~9/20)이라 World Nuclear News·NucNet·ANS·JAIF 모두 신규 기사가 없어, 수집 구간을 9/11까지 넓히고 현지어 매체를 훑어 앞선 브리핑이 놓친 건을 메웠다. 가장 큰 변화는 신규 시장 두 곳이다 — 태국 EGAT가 미국 USTDA 자금으로 약 600MWe 규모 SMR 타당성 조사에 착수하며 미국 7개 노형을 한꺼번에 저울에 올렸고, 카자흐스탄은 로사톰과 1호기 EPC를 맺은 지 2주 만에 2호기(Moyynkum) 공급사 협상에 들어갔다고 IAEA 총회에서 공식 확인했다. 반대로 루마니아는 총리실 감찰반이 Doicești SMR 사업의 2년 가까운 지연과 파트너 선정 불투명성을 공개 지적하며 기조가 흔들렸고, 네덜란드는 예산서로 신규 4기 재원 경로를 못박았다. 영업 관점: 태국은 미국 벤더 전용 조사라 한국이 초기 판에서 빠져 있고 카자흐스탄 2호기는 협상 초기 단계이므로, 두 건 모두 조사 결과가 굳기 전에 접점을 만드는 것이 이번 주 우선순위다.",
   "countries_pulse": [
+    {
+      "country": "TH",
+      "name_ko": "태국",
+      "stance": "expanding",
+      "signal": "기조 변화 — 검토 단계에서 실행 준비로. 국영 EGAT가 미국 USTDA 자금 지원 협정을 맺고 첫 SMR 타당성 조사를 공식 착수",
+      "article_ids": ["2026-09-20-01"]
+    },
+    {
+      "country": "KZ",
+      "name_ko": "카자흐스탄",
+      "stance": "expanding",
+      "signal": "확대 가속 — 1호기(Balkhash) EPC 체결 직후 2호기(Moyynkum) 공급사 협상 개시를 IAEA 총회에서 공식화",
+      "article_ids": ["2026-09-20-02"]
+    },
+    {
+      "country": "RO",
+      "name_ko": "루마니아",
+      "stance": "cautious",
+      "signal": "기조 후퇴 신호 — 총리실 감찰반이 Doicești SMR 사업의 지연·절차 문제를 공개 지적, 유럽 최선도 SMR 사업에 정치적 불확실성",
+      "article_ids": ["2026-09-20-03"]
+    },
+    {
+      "country": "CN",
+      "name_ko": "중국",
+      "stance": "expanding",
+      "signal": "기조 유지 — 하이난 첫 화룽원 창장 3호기 상업운전 진입, 설비 국산화율 98.1%로 자립도 재확인",
+      "article_ids": ["2026-09-20-04"]
+    },
+    {
+      "country": "NL",
+      "name_ko": "네덜란드",
+      "stance": "expanding",
+      "signal": "기조 유지·구체화 — 2027년 예산서에 신규 4기와 SMR 재원을 다년 계획으로 명시, 국영 발주주체 NEO NL 조직 확대",
+      "article_ids": ["2026-09-20-05"]
+    },
     {
       "country": "US",
       "name_ko": "미국",
       "stance": "expanding",
       "signal": "기조 유지 — 주말로 정책 신규 신호 없음. INL의 TRISO 연료 시험, 용융염 확보 등 연료·R&D 인프라 정비가 이어짐",
-      "article_ids": ["2026-09-20-01", "2026-09-20-02"]
+      "article_ids": ["2026-09-20-01", "2026-09-20-06", "2026-09-20-07"]
     },
     {
       "country": "INT",
       "name_ko": "국제기구",
       "stance": "expanding",
-      "signal": "기조 유지 — IAEA 총회 부대 과학포럼 종료, 발전 외 원자력 협력 의제 지속",
-      "article_ids": ["2026-09-20-03"]
+      "signal": "기조 유지 — IAEA 제70차 총회 진행, 부대 과학포럼 종료. 신규 도입국 발표가 총회를 통해 나오는 흐름 지속",
+      "article_ids": ["2026-09-20-02", "2026-09-20-08"]
     }
   ],
   "articles": [
     {
       "id": "2026-09-20-01",
+      "title": "US funding for Thai SMR feasibility study",
+      "title_ko": "미국, 태국 SMR 타당성 조사에 자금 지원",
+      "language": "en",
+      "source": "World Nuclear News",
+      "url": "https://www.world-nuclear-news.org/articles/us-funding-for-thai-smr-feasibility-study",
+      "published": "2026-09-16",
+      "category": "smr",
+      "countries": ["TH", "US"],
+      "importance": 3,
+      "summary_ko": "미국 무역개발청(USTDA)과 태국전력청(EGAT)이 9월 14일 방콕에서 SMR 예비 타당성 조사 자금 지원 협정에 서명했다. 조사 대상은 약 600MWe 규모이며 입지·비용·규제 요건을 살핀다. GE-Hitachi, Holtec, Kairos Power, NuScale, TerraPower, Westinghouse, X-energy 등 미국 7개사 노형을 벤더 중립 방식으로 함께 검토하며, USTDA가 수행사 선정을 위한 제안요청서를 낼 예정이다.",
+      "sales_note": "태국이 원전 도입을 실무 단계로 올린 첫 공식 신호인데, 조사 대상이 미국 노형으로 한정돼 초기 판에서 우리가 빠져 있다. 한수원은 2025년 6월 EGAT와 SMR 협력 MOU를 맺은 이력이 있으므로, 조사 결과가 노형 후보군으로 굳기 전에 그 채널을 되살려 i-SMR을 비교군에 넣는 접촉이 필요하다. 미국이 USTDA 타당성 조사 자금을 앞세워 신규국 초기 단계를 선점하는 방식(필리핀 Meralco 사례와 동일)이 반복되고 있다는 점도 함께 볼 것.",
+      "related": [
+        "https://ustda.gov/ustda-supports-thailands-first-nuclear-energy-infrastructure-project/",
+        "https://www.nationthailand.com/news/policy/40071049"
+      ]
+    },
+    {
+      "id": "2026-09-20-02",
+      "title": "Казахстан ведёт переговоры о строительстве второй АЭС",
+      "title_ko": "카자흐스탄, 제2 원전 건설 협상 진행 중",
+      "language": "ru",
+      "source": "Ритм Евразии",
+      "url": "https://www.ritmeurasia.ru/news--2026-09-16--kazahstan-vedet-peregovory-o-stroitelstve-vtoroj-aes-90344",
+      "published": "2026-09-16",
+      "category": "large",
+      "countries": ["KZ", "RU"],
+      "importance": 3,
+      "summary_ko": "카자흐스탄 원자력청(Агентство по атомной энергии) 구마르 사르가신 부청장이 빈에서 열린 IAEA 제70차 총회에서 \"1호기 건설을 준비하는 동시에 2호기 공급사들과 협상 중\"이라고 밝혔다. 1호기는 알마티주 울켄 인근 발하시(Balkhash) 부지에 로사톰 주도 컨소시엄이 2기 총 2,400MW 규모로 짓고, 공사 기간은 2027~2037년이다. 2호기는 모인쿰(Moyynkum) 부지로 1호기 인근에 계획돼 있으며 공급사 관련 공식 합의는 아직 발표되지 않았다.",
+      "sales_note": "1호기 EPC(9월 3일 동방경제포럼에서 체결)가 로사톰으로 확정된 직후 2호기 협상이 열린 구도다. 2호기는 공식 합의 전 단계여서 아직 진입 여지가 있으나, 부지·인허가·연료가 1호기 기준으로 정해지면 러시아 노형 종속성이 굳는다. 카자흐스탄은 우라늄 공급국이기도 해 연료 연계 제안과 묶어 접근할 여지가 있다.",
+      "related": [
+        "https://eadaily.com/ru/news/2026/09/03/rosatom-i-kaes-podpisali-kontrakt-na-stroitelstvo-aes-v-kazahstane"
+      ]
+    },
+    {
+      "id": "2026-09-20-03",
+      "title": "Guvernul dezvăluie ce se întâmplă în proiectul nuclear de la Doicești. Raportul foarte critic al Corpului de control a devenit public",
+      "title_ko": "루마니아 정부, Doicești 원자력 사업 실태 공개 — 감찰반의 강도 높은 비판 보고서 공표",
+      "language": "ro",
+      "source": "Ziare.com",
+      "url": "https://ziare.com/reactoare-modulare-mici/nereguli-control-guvern-2034931",
+      "published": "2026-09-11",
+      "category": "smr",
+      "countries": ["RO", "US"],
+      "importance": 3,
+      "summary_ko": "루마니아 총리실 감찰반(Corpul de control)이 Doicești SMR 사업 점검 결과를 공개했다. 사업 추진이 2년 가까이 지연됐고, 부지 선정에 충분한 경제성 분석이 없었으며, 민간 파트너를 투명한 선정 절차 없이 들였고, 조달 절차를 우회해 재무·상업 위험이 국영기업 쪽으로 쏠렸다는 지적이다. 일리에 볼로얀(Ilie Bolojan) 총리는 지금까지 구체적 성과 없이 각종 조사·용역에 2억 유로 넘게 쓰였다고 밝혔다.",
+      "sales_note": "NuScale 노형을 쓰는 유럽 최선도 SMR 사업(RoPower, Doicești)이 정치·감사 리스크에 직접 노출됐다. 유럽 시장에서 \"미국 SMR이 먼저 간다\"는 레퍼런스가 흔들리는 국면이라, 유럽 발주처 대상 i-SMR 설명에서 사업관리·조달 투명성을 차별점으로 세울 수 있다. 동시에 루마니아 사업 자체의 노형 재검토 가능성도 계속 추적할 것.",
+      "related": [
+        "https://www.world-nuclear-news.org/articles/nuclearelectricas-proposal-to-review-smr-options-rejected-by-ministry"
+      ]
+    },
+    {
+      "id": "2026-09-20-04",
+      "title": "海南首台\"华龙一号\"核电机组投产商运",
+      "title_ko": "하이난 첫 '화룽원' 원전 기기 상업운전 개시",
+      "language": "zh",
+      "source": "中国新闻网",
+      "url": "https://www.chinanews.com.cn/cj/2026/09-17/10698254.shtml",
+      "published": "2026-09-17",
+      "category": "large",
+      "countries": ["CN"],
+      "importance": 2,
+      "summary_ko": "중국화능(China Huaneng)이 지배지분을 가진 첫 대형 가압경수로인 창장(昌江) 원전 2단계 3호기가 9월 17일 하이난에서 상업운전에 들어갔다. 2단계는 화룽원(华龙一号) 노형 120만kW급 2기 구성이며, 전량 준공 시 연간 약 180억kWh를 생산한다. 3호기는 설비 국산화율 98.1%와 86건의 설계 최적화를 적용했고, 화능이 자체 개발한 HAP 생산관리 시스템을 소프트·하드웨어 전량 국산으로 적용했다.",
+      "sales_note": "중국이 화룽원 운전 실적을 계속 쌓으며 수출 레퍼런스를 두껍게 하고 있다. 국산화율 98.1%는 중국이 해외 입찰에서 가격·공급망 자립을 내세울 근거가 되므로, 중동·중앙아시아·동남아 경합에서 가격 경쟁 압박이 커지는 요인으로 봐야 한다.",
+      "related": [
+        "https://www.nucnet.org/news/china-s-chiangjiang-3-hualong-one-reactor-begins-commercial-operation-9-5-2026"
+      ]
+    },
+    {
+      "id": "2026-09-20-05",
+      "title": "Beleidsartikel 1 Kernenergie — Ontwerpbegroting 2027",
+      "title_ko": "2027년 예산안 정책항목 1 '원자력'",
+      "language": "nl",
+      "source": "Rijksfinanciën (네덜란드 재무부 예산서)",
+      "url": "https://www.rijksfinancien.nl/memorie-van-toelichting/2026/OWB/M/onderdeel/9634054",
+      "published": "2026-09-15",
+      "category": "policy",
+      "countries": ["NL"],
+      "importance": 2,
+      "summary_ko": "네덜란드 정부가 예산의 날(Prinsjesdag)에 공개한 2027년 예산서에서 보르셀러(Borssele) 계속운전 검토와 신규 원전 4기 건설 준비를 정책 목표로 명시했다. 원자력 항목 총액은 2024~2035년 135.1억 유로이며, 2027년 집행액은 6억 5,890만 유로, 2030년 12.5억 유로, 2030년 이후 103.6억 유로로 배분했다. 발주주체와 운영주체를 분리하기 위해 국영회사 NEO NL 조직을 확대하고, 원자력 아카데미(2026~2030)에 300만 유로, 규제기관 역량 강화와 방사선방호에 1억 3,596만 유로를 배정했다.",
+      "sales_note": "네덜란드가 신규 4기를 예산 다년 계획으로 못박아 재원 불확실성이 줄었다. 발주 주체가 NEO NL로 정리되는 만큼 향후 노형 선정과 EPC 발주의 상대방이 명확해진다 — 입지와 노형 결정이 남아 있는 단계이므로 사전 접촉 대상으로 관리할 것.",
+      "related": [
+        "https://www.laka.org/button/764266"
+      ]
+    },
+    {
+      "id": "2026-09-20-06",
       "title": "Industry and INL collaborate to test new varieties of TRISO fuel",
       "title_ko": "산업계와 INL, 새로운 TRISO 연료 변종 시험 협력",
       "language": "en",
@@ -38,7 +159,7 @@
       "sales_note": "HTGR·마이크로로 노형의 연료 인증 경로가 미국 국립연구소를 축으로 정비되고 있다. 해외 SMR 사업에서 연료 조달·인증 일정이 노형 선택을 좌우하는 변수인 만큼 경로 변화를 계속 추적할 필요."
     },
     {
-      "id": "2026-09-20-02",
+      "id": "2026-09-20-07",
       "title": "MSRE FLiBe arrives in Texas for reuse after decades in storage",
       "title_ko": "수십 년 보관돼 온 MSRE FLiBe, 재사용 위해 텍사스 도착",
       "language": "en",
@@ -52,7 +173,7 @@
       "sales_note": "용융염로 상용화의 병목 중 하나인 초기 염(salt) 확보를 기존 재고 재활용으로 푸는 사례. 용융염 노형의 실증 속도를 가늠하는 참고 지표."
     },
     {
-      "id": "2026-09-20-03",
+      "id": "2026-09-20-08",
       "title": "IAEA scientific forum highlights nuclear medicine for countries in need",
       "title_ko": "IAEA 과학포럼, 지원이 필요한 국가의 원자력 의학 조명",
       "language": "en",
