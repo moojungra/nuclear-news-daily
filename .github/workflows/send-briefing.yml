@@ -1,0 +1,30 @@
+name: 브리핑 메일 발송
+
+on:
+  push:
+    branches: [main]
+    paths: ["data/20*.json"]   # 에이전트가 새 브리핑을 올리면 발송
+  workflow_dispatch:            # Actions 탭에서 수동 발송
+    inputs:
+      date:
+        description: "보낼 날짜 (YYYY-MM-DD, 비우면 최신)"
+        required: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Send
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          PAGE_URL: https://moojungra.github.io/nuclear-news-daily/
+        run: python scripts/send_mail.py ${{ github.event.inputs.date }}
