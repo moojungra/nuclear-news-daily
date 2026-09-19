@@ -1,0 +1,66 @@
+# 해외영업팀 관심 분야 설정 — 코드 몰라도 이 파일만 고치면 에이전트 동작이 바뀝니다.
+
+categories:
+  large:  "대형원전 (APR1400/APR1000, AP1000, EPR, VVER, Hualong One 등 신규 건설·수주·계속운전)"
+  smr:    "SMR·마이크로·선진로 (i-SMR, NuScale, BWRX-300, Rolls-Royce SMR, Xe-100, Natrium 등)"
+  policy: "국가 원자력 정책·규제·정세·국제기구 (IAEA, NEA, EU, 정권 교체, 탈원전/복원전)"
+  fuel:   "우라늄·농축·HALEU·핵연료 공급망"
+
+# 매일 최소 한 번씩 검색해 정세 변화를 확인할 나라 (ISO 코드: 이름)
+watch_countries:
+  # 수주 진행·잠재 시장
+  CZ: 체코
+  PL: 폴란드
+  SK: 슬로바키아
+  SI: 슬로베니아
+  NL: 네덜란드
+  SE: 스웨덴
+  HU: 헝가리
+  RO: 루마니아
+  BG: 불가리아
+  GB: 영국
+  FR: 프랑스
+  TR: 튀르키예
+  SA: 사우디아라비아
+  AE: UAE
+  EG: 이집트
+  KZ: 카자흐스탄
+  UZ: 우즈베키스탄
+  IN: 인도
+  VN: 베트남
+  PH: 필리핀
+  ID: 인도네시아
+  TH: 태국
+  # 주요 공급국·경쟁국
+  US: 미국
+  CN: 중국
+  RU: 러시아
+  JP: 일본
+  CA: 캐나다
+  FI: 핀란드
+
+# 공통 검색 쿼리 ({date}는 기준 월/일로 바뀜)
+search_queries:
+  - "nuclear power plant news {date}"
+  - "new nuclear reactor tender OR contract OR vendor selection {date}"
+  - "small modular reactor SMR agreement OR license {date}"
+  - "nuclear energy policy government {date}"
+  - "uranium enrichment HALEU supply {date}"
+  - "KHNP OR KEPCO nuclear export {date}"
+  - "Westinghouse OR EDF OR Rosatom nuclear deal {date}"
+  - "{country} nuclear power {date}"   # watch_countries 각각에 적용
+
+# 경쟁 구도 파악용 벤더 목록 (sales_note 작성 시 참고)
+vendors:
+  - KHNP / KEPCO / Doosan Enerbility
+  - Westinghouse
+  - EDF
+  - Rosatom
+  - CGN / CNNC / SPIC
+  - GE Vernova Hitachi
+  - Rolls-Royce SMR
+  - NuScale
+  - Holtec
+  - X-energy
+  - TerraPower
+  - Candu Energy (AtkinsRéalis)

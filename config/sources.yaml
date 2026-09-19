@@ -1,0 +1,30 @@
+# 수집 출처. primary는 매일 목록 페이지를 직접 열어봄, secondary는 검색으로 보강.
+
+primary:
+  - name: World Nuclear News
+    url: https://www.world-nuclear-news.org/
+  - name: NucNet
+    url: https://www.nucnet.org/
+  - name: ANS Nuclear Newswire
+    url: https://www.ans.org/news/
+  - name: IAEA News
+    url: https://www.iaea.org/news
+  - name: OECD NEA News
+    url: https://www.oecd-nea.org/jcms/c_12886/news
+
+secondary:
+  - Reuters (energy / nuclear)
+  - Bloomberg (energy)
+  - Financial Times
+  - Nikkei Asia
+  - POWER Magazine
+  - Neutron Bytes
+  - 각국 에너지부·원자력 규제기관 보도자료 (US DOE/NRC, UK DESNZ/ONR, Czech MPO, Poland PEJ, Saudi, UAE ENEC 등)
+  - 벤더 보도자료 (Westinghouse, EDF, KHNP, Rosatom, Rolls-Royce SMR, NuScale, GE Vernova Hitachi)
+
+# 사실 확인 출처로 쓰지 않음 (의견·반핵 요약 사이트, 광고성 시장보고서)
+exclude:
+  - nuclear-news.net
+  - no2nuclearpower.org.uk
+  - globenewswire.com 시장조사 보고서
+  - simplywall.st
