@@ -18,6 +18,8 @@ description: 해외영업팀용 일일 원자력 뉴스 브리핑을 만든다. 
 
 - `sources.yaml`의 `primary` 출처 홈페이지/목록 페이지를 WebFetch로 열어 기간 내 기사 제목·URL·날짜를 뽑는다.
 - `topics.yaml`의 검색 쿼리로 WebSearch를 돌려 주요 통신사·경제지·각국 정부/규제기관 발표를 보강한다. 관심국가 목록(`watch_countries`)은 국가명 + nuclear 로 최소 한 번씩 훑는다.
+- **현지어 수집**: `sources.yaml`의 `local` 나라마다 `queries`를 그 나라 말 그대로 검색한다(필요하면 `outlets`를 `allowed_domains`로 지정). 영어권 매체에 아직 안 나온 입찰·정책·여론 기사를 우선 찾는다. 같은 사건의 영문 기사가 있어도 현지 기사에 더 구체적인 수치·일정이 있으면 현지 기사를 대표로 삼고 영문 기사는 `related`로.
+- 현지어 기사는 본문을 열어 확인한 뒤 한국어로 번역·요약한다. `title`은 원문 제목 그대로(원어), `title_ko`는 번역, `language`는 ISO 639-1 코드(cs, pl, ja, zh, ar, ru …). 고유명사(사업명·기관명·기업명)는 요약에서 원어 또는 널리 쓰이는 영문 표기를 괄호로 병기한다.
 - 기사 건수 제한은 없다. 단 아래는 제외:
   - 수집 기간 밖 기사, 중복 제외 목록에 있는 URL
   - 같은 사건을 다룬 중복 기사(가장 1차적인 출처 하나만 남기고 나머지는 `related`에 URL로)
@@ -33,7 +35,8 @@ description: 해외영업팀용 일일 원자력 뉴스 브리핑을 만든다. 
 | `importance` | 3 = 발주·입찰·벤더 선정·FID·정부 정책 전환처럼 영업에 직접 영향 / 2 = 경쟁사·시장 동향으로 알아둘 것 / 1 = 참고 |
 | `summary_ko` | 한글 2~3문장. 누가·무엇을·수치·일정. 번역투 피하기 |
 | `sales_note` | 해외영업 관점 시사점 1~2문장. 경쟁 구도(Westinghouse, EDF, KHNP, Rosatom, CGN/CNNC, GE-Hitachi, Rolls-Royce SMR, NuScale 등), 입찰 일정, 금융(ECA·DFC·EIB), 규제 협력 등. 억지로 만들지 말고 없으면 빈 문자열 |
-| `title` | 원문 제목 그대로, `title_ko`는 한글 번역 제목 |
+| `title` | 원문 제목 그대로(원어), `title_ko`는 한글 번역 제목 |
+| `language` | 원문 언어 ISO 639-1 코드 (`en`, `cs`, `ja` …) |
 
 ## 3. 국가별 정세 (`countries_pulse`)
 

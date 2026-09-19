@@ -22,6 +22,41 @@ secondary:
   - 각국 에너지부·원자력 규제기관 보도자료 (US DOE/NRC, UK DESNZ/ONR, Czech MPO, Poland PEJ, Saudi, UAE ENEC 등)
   - 벤더 보도자료 (Westinghouse, EDF, KHNP, Rosatom, Rolls-Royce SMR, NuScale, GE Vernova Hitachi)
 
+# 현지어 매체 — 영어권 매체보다 먼저 나오는 입찰·정책·여론 신호를 잡기 위함.
+# queries: 그 나라 말로 매일 검색할 문구. outlets: 검색 시 site: 필터로 쓸 대표 매체 도메인.
+# 나라를 추가하려면 같은 형식으로 한 블록 복사해서 고치면 됩니다.
+local:
+  CZ: { lang: cs, queries: ["jaderná elektrárna Dukovany", "jaderné zdroje KHNP", "malé modulární reaktory ČEZ"], outlets: [irozhlas.cz, hn.cz, e15.cz, seznamzpravy.cz] }
+  PL: { lang: pl, queries: ["elektrownia jądrowa", "PEJ Lubiatowo", "małe reaktory SMR Polska"], outlets: [rp.pl, wysokienapiecie.pl, biznesalert.pl] }
+  SK: { lang: sk, queries: ["jadrová elektráreň Bohunice nový zdroj", "jadrová energetika Slovensko"], outlets: [sme.sk, hnonline.sk] }
+  SI: { lang: sl, queries: ["JEK2", "jedrska elektrarna Krško"], outlets: [delo.si, sta.si] }
+  HU: { lang: hu, queries: ["Paks II atomerőmű", "kis moduláris reaktor"], outlets: [portfolio.hu, index.hu] }
+  RO: { lang: ro, queries: ["Cernavodă unitățile 3 și 4", "reactoare modulare Doicești"], outlets: [economica.net, agerpres.ro] }
+  BG: { lang: bg, queries: ["АЕЦ Козлодуй 7 и 8 блок", "ядрена енергетика България"], outlets: [bta.bg, capital.bg] }
+  NL: { lang: nl, queries: ["nieuwe kerncentrales Borssele", "kernenergie kabinet"], outlets: [nos.nl, fd.nl] }
+  SE: { lang: sv, queries: ["ny kärnkraft Ringhals Vattenfall", "kärnkraft statsstöd"], outlets: [di.se, nyteknik.se] }
+  FI: { lang: fi, queries: ["ydinvoima uusi", "pienydinvoimala"], outlets: [yle.fi, hs.fi] }
+  FR: { lang: fr, queries: ["EPR2 nucléaire", "petits réacteurs modulaires", "EDF export nucléaire"], outlets: [lesechos.fr, lemonde.fr] }
+  TR: { lang: tr, queries: ["nükleer santral Sinop", "Akkuyu nükleer", "küçük modüler reaktör Türkiye"], outlets: [aa.com.tr, dunya.com] }
+  SA: { lang: ar, queries: ["محطة الطاقة النووية السعودية", "البرنامج النووي السعودي"], outlets: [aawsat.com, alarabiya.net] }
+  AE: { lang: ar, queries: ["براكة الطاقة النووية الإمارات"], outlets: [aawsat.com, alarabiya.net] }
+  EG: { lang: ar, queries: ["محطة الضبعة النووية"], outlets: [ahram.org.eg] }
+  KZ: { lang: ru, queries: ["АЭС Казахстан", "атомная станция Балхаш"], outlets: [kapital.kz, kursiv.media] }
+  UZ: { lang: ru, queries: ["АЭС Узбекистан", "атомная электростанция Джизак"], outlets: [gazeta.uz, kun.uz] }
+  RU: { lang: ru, queries: ["Росатом зарубежные проекты АЭС"], outlets: [interfax.ru, kommersant.ru, atomic-energy.ru] }
+  VN: { lang: vi, queries: ["điện hạt nhân Ninh Thuận"], outlets: [vnexpress.net, tuoitre.vn] }
+  ID: { lang: id, queries: ["PLTN Indonesia", "pembangkit listrik tenaga nuklir"], outlets: [kompas.com, cnbcindonesia.com] }
+  TH: { lang: th, queries: ["โรงไฟฟ้านิวเคลียร์ SMR"], outlets: [prachachat.net, bangkokpost.com] }
+  JP: { lang: ja, queries: ["原発 再稼働", "次世代革新炉 建設", "原発 海外 受注"], outlets: [nikkei.com, denkishimbun.com, jaif.or.jp] }
+  CN: { lang: zh, queries: ["核电机组 核准", "华龙一号 出口", "小型堆 玲龙一号"], outlets: [xinhuanet.com, caixin.com] }
+  # 한국 매체: 해외 수주 관련 국내 보도(경쟁사 동향, 정부 지원) 확인용
+  KR: { lang: ko, queries: ["원전 수출 수주", "i-SMR 해외"], outlets: [electimes.com, ekn.kr, yna.co.kr] }
+
+# 영어로 충분한 나라 (현지 영문 매체 중심): IN, PH, GB, US, CA
+local_english:
+  IN: [economictimes.indiatimes.com, thehindubusinessline.com]
+  PH: [philstar.com, bworldonline.com]
+
 # 사실 확인 출처로 쓰지 않음 (의견·반핵 요약 사이트, 광고성 시장보고서)
 exclude:
   - nuclear-news.net
