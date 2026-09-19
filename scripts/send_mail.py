@@ -46,7 +46,6 @@ def kdate(d):
 def build(d, page_url):
     arts = d["articles"]
     key = [a for a in arts if a["importance"] == 3]
-    parts = d["overview_ko"].split("영업 관점:")
     link = f"{page_url}?d={d['date']}" if page_url else ""
 
     def article(a):
@@ -64,15 +63,40 @@ def build(d, page_url):
                 f'<div style="margin-top:8px;font-size:14px;line-height:1.65;color:#34454d">{e(a["summary_ko"])}</div>'
                 f'{note}</td></tr>')
 
-    sections = ""
-    for k in ["large", "smr", "policy", "fuel"]:
-        items = sorted([a for a in arts if a["category"] == k], key=lambda a: a["published"], reverse=True)
-        items.sort(key=lambda a: -a["importance"])
+    def sections(region_arts):
+        out = ""
+        for k in ["large", "smr", "policy", "fuel"]:
+            items = sorted([a for a in region_arts if a["category"] == k], key=lambda a: a["published"], reverse=True)
+            items.sort(key=lambda a: -a["importance"])
+            if not items:
+                continue
+            out += (f'<h3 style="margin:24px 0 4px;font-size:16px;color:#132026;border-bottom:2px solid {CAT_COLOR[k]};padding-bottom:6px">'
+                    f'{CAT[k]} <span style="font-size:13px;color:#65757c;font-weight:normal">{len(items)}건</span></h3>'
+                    f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(article(a) for a in items)}</table>')
+        return out
+
+    def summary(text):
+        parts = text.split("영업 관점:")
+        return (f'<p style="margin:0;font-size:14.5px;line-height:1.7;color:#34454d">{e(parts[0].strip())}</p>'
+                + (f'<div style="margin-top:12px;background:#e3f0f6;padding:12px 14px;border-radius:6px;font-size:14.5px">'
+                   f'<b style="color:#0a6f96">영업 관점</b> {e(parts[1].strip())}</div>' if len(parts) > 1 else ""))
+
+    def keylist(items):
         if not items:
-            continue
-        sections += (f'<h2 style="margin:28px 0 4px;font-size:17px;color:#132026;border-bottom:2px solid {CAT_COLOR[k]};padding-bottom:6px">'
-                     f'{CAT[k]} <span style="font-size:13px;color:#65757c;font-weight:normal">{len(items)}건</span></h2>'
-                     f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(article(a) for a in items)}</table>')
+            return ""
+        lis = "".join(
+            f'<li style="margin:0 0 10px"><b>[{CAT[a["category"]]}]</b> '
+            f'<a href="{e(a["url"])}" style="color:#0a6f96">{e(a["title_ko"])}</a>'
+            f'<div style="color:#65757c;font-size:13px">{e(a.get("sales_note") or a["summary_ko"])}</div></li>' for a in items)
+        return (f'<h3 style="margin:22px 0 8px;font-size:16px">핵심 기사 ★★★</h3>'
+                f'<ul style="margin:0;padding-left:18px;font-size:14.5px;line-height:1.55">{lis}</ul>')
+
+    def region_head(label, n):
+        return (f'<h2 style="margin:34px 0 12px;font-size:19px;color:#ffffff;background:#10262f;padding:8px 14px;border-radius:6px">'
+                f'{label} <span style="font-size:13px;color:#9fb6bf;font-weight:normal">{n}건</span></h2>')
+
+    ov = [a for a in arts if a.get("region", "overseas") == "overseas"]
+    dm = [a for a in arts if a.get("region") == "domestic"]
 
     pulse = "".join(
         f'<tr><td style="padding:8px 10px;border-bottom:1px solid #e9edef;font-weight:bold;white-space:nowrap;vertical-align:top">{e(p["name_ko"])}</td>'
@@ -80,11 +104,6 @@ def build(d, page_url):
         f'● {STANCE.get(p["stance"], (p["stance"],))[0]}</td>'
         f'<td style="padding:8px 10px;border-bottom:1px solid #e9edef;color:#34454d;vertical-align:top">{e(p["signal"])}</td></tr>'
         for p in d["countries_pulse"])
-
-    keylist = "".join(
-        f'<li style="margin:0 0 10px"><b>[{CAT[a["category"]]}]</b> '
-        f'<a href="{e(a["url"])}" style="color:#0a6f96">{e(a["title_ko"])}</a>'
-        f'<div style="color:#65757c;font-size:13px">{e(a.get("sales_note") or a["summary_ko"])}</div></li>' for a in key)
 
     btn = (f'<p style="margin:24px 0 0;text-align:center"><a href="{e(link)}" style="display:inline-block;background:#0a6f96;color:#fff;'
            f'text-decoration:none;padding:10px 22px;border-radius:6px;font-weight:bold">웹에서 필터·검색하며 보기</a></p>') if link else ""
@@ -95,25 +114,30 @@ def build(d, page_url):
 <tr><td style="background:#10262f;color:#e8f1f4;padding:18px 24px;border-radius:10px 10px 0 0">
 <div style="font-size:11px;letter-spacing:2px;color:#7fc9e4">OVERSEAS NUCLEAR BRIEF</div>
 <div style="font-size:21px;font-weight:bold;margin-top:4px">{kdate(d['date'])} 원자력 해외동향</div>
-<div style="font-size:12px;color:#9fb6bf;margin-top:4px">수집 {e(d['period']['from'])} ~ {e(d['period']['to'])} · 기사 {len(arts)}건 · 핵심 {len(key)}건</div>
+<div style="font-size:12px;color:#9fb6bf;margin-top:4px">수집 {e(d['period']['from'])} ~ {e(d['period']['to'])} · 해외 {len(ov)}건 · 국내 {len(dm)}건 · 핵심 {len(key)}건</div>
 </td></tr>
-<tr><td style="padding:20px 24px 28px">
-<h2 style="margin:0 0 8px;font-size:17px">오늘의 요약</h2>
-<p style="margin:0;font-size:14.5px;line-height:1.7;color:#34454d">{e(parts[0].strip())}</p>
-{f'<div style="margin-top:12px;background:#e3f0f6;padding:12px 14px;border-radius:6px;font-size:14.5px"><b style="color:#0a6f96">영업 관점</b> {e(parts[1].strip())}</div>' if len(parts) > 1 else ''}
-{f'<h2 style="margin:26px 0 8px;font-size:17px">핵심 기사 ★★★</h2><ul style="margin:0;padding-left:18px;font-size:14.5px;line-height:1.55">{keylist}</ul>' if key else ''}
-<h2 style="margin:26px 0 8px;font-size:17px">국가별 정세</h2>
+<tr><td style="padding:4px 24px 28px">
+{region_head("해외", len(ov))}
+{summary(d["overview_ko"])}
+{keylist([a for a in ov if a["importance"] == 3])}
+<h3 style="margin:22px 0 8px;font-size:16px">국가별 정세</h3>
 <table width="100%" cellpadding="0" cellspacing="0" style="font-size:13.5px;line-height:1.5">{pulse}</table>
-{sections}
+{sections(ov)}
+{region_head("국내", len(dm))}
+{summary(d.get("domestic_overview_ko") or "국내 기사 없음.")}
+{keylist([a for a in dm if a["importance"] == 3])}
+{sections(dm)}
 {btn}
-<p style="margin:24px 0 0;font-size:11.5px;color:#8a979c">AI 에이전트가 해외 매체·현지어 기사를 수집해 한국어로 요약했습니다. 요약과 시사점은 참고용이며 원문으로 확인하세요.</p>
+<p style="margin:24px 0 0;font-size:11.5px;color:#8a979c">AI 에이전트가 해외·국내 매체와 현지어 기사를 수집해 한국어로 요약했습니다. 요약과 시사점은 참고용이며 원문으로 확인하세요.</p>
 </td></tr></table></td></tr></table></body></html>"""
 
 
 def build_text(d, page_url):
-    lines = [f"{kdate(d['date'])} 원자력 해외동향", "", d["overview_ko"], ""]
+    lines = [f"{kdate(d['date'])} 원자력 해외동향", "", "[해외] " + d["overview_ko"], "",
+             "[국내] " + (d.get("domestic_overview_ko") or "국내 기사 없음."), ""]
     for a in d["articles"]:
-        lines += [f"[{CAT[a['category']]}] {'★' * a['importance']} {a['title_ko']}", a["url"], ""]
+        rg = "국내" if a.get("region") == "domestic" else "해외"
+        lines += [f"[{rg}·{CAT[a['category']]}] {'★' * a['importance']} {a['title_ko']}", a["url"], ""]
     if page_url:
         lines.append(f"{page_url}?d={d['date']}")
     return "\n".join(lines)

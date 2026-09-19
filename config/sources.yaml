@@ -49,8 +49,53 @@ local:
   TH: { lang: th, queries: ["โรงไฟฟ้านิวเคลียร์ SMR"], outlets: [prachachat.net, bangkokpost.com] }
   JP: { lang: ja, queries: ["原発 再稼働", "次世代革新炉 建設", "原発 海外 受注"], outlets: [nikkei.com, denkishimbun.com, jaif.or.jp] }
   CN: { lang: zh, queries: ["核电机组 核准", "华龙一号 出口", "小型堆 玲龙一号"], outlets: [xinhuanet.com, caixin.com] }
-  # 한국 매체: 해외 수주 관련 국내 보도(경쟁사 동향, 정부 지원) 확인용
-  KR: { lang: ko, queries: ["원전 수출 수주", "i-SMR 해외"], outlets: [electimes.com, ekn.kr, yna.co.kr] }
+
+# ── 국내 ─────────────────────────────────────────────
+# 한국이 주체인 기사(한전·한수원·국내 기업의 해외사업 포함, i-SMR, 정부·원안위 정책, 국내 건설·운영)
+domestic:
+  # 공식 발표 — 있으면 대표 출처로 사용
+  official:
+    - { name: 한국수력원자력 보도자료, domain: khnp.co.kr }
+    - { name: 한국전력 보도자료, domain: kepco.co.kr }
+    - { name: 산업통상부 (원전 수출), domain: motie.go.kr }
+    - { name: 기후에너지환경부 (원전 정책), domain: me.go.kr }
+    - { name: 원자력안전위원회, domain: nssc.go.kr }
+    - { name: 한국원자력산업협회, domain: kaif.or.kr }
+    - { name: 혁신형SMR기술개발사업단, domain: i-smr.or.kr }
+  # 매체
+  outlets:
+    - electimes.com        # 전기신문
+    - ekn.kr               # 에너지경제
+    - knpnews.com          # 원자력신문
+    - energy-news.co.kr    # 에너지신문
+    - todayenergy.kr       # 투데이에너지
+    - yna.co.kr            # 연합뉴스
+    - hankyung.com         # 한국경제
+    - mk.co.kr             # 매일경제
+    - biz.chosun.com       # 조선비즈
+  # 매일 검색할 문구 (한국어)
+  queries:
+    # 한전·한수원 해외사업
+    - 한수원 해외 원전
+    - 한전 원전 수출
+    - 체코 두코바니 한수원
+    - 원전 수출 수주 협상
+    # SMR
+    - i-SMR 혁신형 SMR
+    - SMR 표준설계인가
+    - 두산에너빌리티 SMR
+    # 정책·규제
+    - 원전 정책 정부
+    - 원자력안전위원회 심의 의결
+    - 원전 계속운전 허가
+    - 신규 원전 부지 건설
+    - 전력수급기본계획 원전
+    # 공급망·금융
+    - 원전 기자재 수주 공급망
+    - 원전 수출 금융 수출입은행 무역보험
+    # 기관 경영
+    - 한수원 사장 조직개편
+    - 한전 원전 사업 구조
 
 # 영어로 충분한 나라 (현지 영문 매체 중심): IN, PH, GB, US, CA
 local_english:

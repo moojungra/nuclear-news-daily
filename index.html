@@ -94,6 +94,12 @@ main{min-width:0;display:flex;flex-direction:column;gap:22px}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:0}
 .legend b{font:500 12px var(--mono);margin-left:4px}
 
+.regions{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:-6px}
+.regions button{position:relative;background:none;border:0;padding:10px 16px 12px;font-size:16px;font-weight:600;color:var(--muted);cursor:pointer}
+.regions button .n{font:500 12px var(--mono);margin-left:6px;color:var(--muted)}
+.regions button[aria-selected="true"]{color:var(--ink)}
+.regions button[aria-selected="true"]::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--accent)}
+.it .rg{font-size:11.5px;font-weight:600;color:var(--bg);background:var(--ink-2);border-radius:4px;padding:0 6px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
 .sec-h{display:flex;align-items:baseline;gap:10px;margin:0 0 10px}
 .sec-h h2{margin:0;font-size:17px;font-weight:700}
@@ -211,7 +217,10 @@ const LANG = {cs:"체코어", pl:"폴란드어", sk:"슬로바키아어", sl:"�
 const CN = {US:"미국",CN:"중국",RU:"러시아",JP:"일본",KR:"한국",GB:"영국",FR:"프랑스",DE:"독일",CA:"캐나다",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",CZ:"체코",PL:"폴란드",SK:"슬로바키아",SI:"슬로베니아",HU:"헝가리",RO:"루마니아",BG:"불가리아",TR:"튀르키예",SA:"사우디",AE:"UAE",EG:"이집트",KZ:"카자흐스탄",UZ:"우즈베키스탄",IN:"인도",VN:"베트남",PH:"필리핀",ID:"인도네시아",TH:"태국",NE:"니제르",EU:"EU",INT:"국제"};
 const WD = ["일","월","화","수","목","금","토"];
 
-const state = {days:[], heads:{}, date:null, data:null, cat:null, country:null, imp:false, q:""};
+const REG = {overseas:"해외", domestic:"국내"};
+const regionOf = a => a.region || "overseas";
+const state = {days:[], heads:{}, date:null, data:null, region:"overseas", cat:null, country:null, imp:false, q:""};
+try{ const r = localStorage.getItem("nnd-region"); if(REG[r]) state.region = r; }catch(e){}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const cname = c => CN[c] || c;
@@ -254,7 +263,9 @@ function counts(list){ const c = {}; CAT_ORDER.forEach(k => c[k] = 0); list.forE
 function filtered(){
   const d = state.data, q = state.q.trim().toLowerCase();
   const ids = state.country ? new Set((d.countries_pulse.find(p => p.country === state.country)||{}).article_ids||[]) : null;
+  const cross = state.country || q;   // 국가·검색 필터는 해외·국내를 가로질러 찾는다
   return d.articles.filter(a =>
+    (cross || regionOf(a) === state.region) &&
     (!state.cat || a.category === state.cat) &&
     (!state.imp || a.importance >= 2) &&
     (!ids || ids.has(a.id) || a.countries.includes(state.country)) &&
@@ -265,6 +276,7 @@ function filtered(){
 function card(a){
   return `<article class="it cat-${esc(a.category)}" id="${esc(a.id)}">
     <div class="meta">
+      ${(state.country || state.q.trim()) ? `<span class="rg">${REG[regionOf(a)]}</span>` : ""}
       <span class="stars" title="중요도 ${a.importance}">${"★".repeat(a.importance)}${"☆".repeat(3-a.importance)}</span>
       <span class="flags">${a.countries.map(c => `<span>${esc(cname(c))}</span>`).join("")}</span>
       ${a.language && a.language !== "en" ? `<span class="lang">원문 ${esc(LANG[a.language] || a.language)}</span>` : ""}
@@ -279,16 +291,20 @@ function card(a){
 }
 
 function render(){
-  const d = state.data, all = d.articles, c = counts(all), total = all.length || 1;
+  const d = state.data, dom = state.region === "domestic";
+  const all = d.articles.filter(a => regionOf(a) === state.region), c = counts(all), total = all.length || 1;
+  const rc = {overseas:0, domestic:0}; d.articles.forEach(a => rc[regionOf(a)]++);
   const list = filtered(), fc = counts(list);
   const active = state.cat || state.country || state.imp || state.q.trim();
+  const showPulse = !dom || state.country;
 
   // side: category filter + toc
   $("#catnav").innerHTML = CAT_ORDER.map(k => `<button class="cat-${k}" data-k="${k}" aria-pressed="${state.cat===k}"><span class="dot"></span>${CAT[k]}<span class="n">${c[k]}</span></button>`).join("");
-  $("#toc").innerHTML = [["top","오늘의 요약"],["key","핵심 기사"],["pulse","국가별 정세"],...CAT_ORDER.filter(k => fc[k]).map(k => ["sec-"+k, CAT[k]])]
+  $("#toc").innerHTML = [["top", REG[state.region] + " 요약"],["key","핵심 기사"],...(showPulse ? [["pulse","국가별 정세"]] : []),...CAT_ORDER.filter(k => fc[k]).map(k => ["sec-"+k, CAT[k]])]
     .map(([id,l]) => `<button data-go="${id}">${l}</button>`).join("");
 
-  const overview = d.overview_ko.split("영업 관점:");
+  const ovText = dom ? (d.domestic_overview_ko || "국내 기사 수집 전 브리핑입니다.") : d.overview_ko;
+  const overview = ovText.split("영업 관점:");
   const key = all.filter(a => a.importance === 3);
   const pulseRows = d.countries_pulse.map(p => {
     const n = new Set([...(p.article_ids||[]), ...all.filter(a => a.countries.includes(p.country)).map(a => a.id)]).size;
@@ -304,14 +320,20 @@ function render(){
   $("#main").innerHTML = `
     <section class="headline" id="top">
       <h1>${fmtDate(d.date)} 브리핑</h1>
-      <p class="sub">수집 ${esc(d.period.from)} ~ ${esc(d.period.to)} · 기사 ${all.length}건 · 핵심 ${key.length}건 · 국가 ${d.countries_pulse.length}곳</p>
+      <p class="sub">수집 ${esc(d.period.from)} ~ ${esc(d.period.to)} · 해외 ${rc.overseas}건 · 국내 ${rc.domestic}건</p>
+    </section>
+
+    <div class="regions" role="tablist">${Object.keys(REG).map(r => `<button role="tab" data-r="${r}" aria-selected="${state.region===r}">${REG[r]}<span class="n">${rc[r]}</span></button>`).join("")}</div>
+
+    <section>
+      <p class="sub" style="margin:0;font:500 12.5px var(--mono);color:var(--muted)">${REG[state.region]} 기사 ${all.length}건 · 핵심 ${key.length}건${dom ? "" : ` · 국가 ${d.countries_pulse.length}곳`}</p>
       <div class="dist" aria-hidden="true">${CAT_ORDER.map(k => c[k] ? `<span class="cat-${k}" style="width:${c[k]/total*100}%"></span>` : "").join("")}</div>
       <div class="legend">${CAT_ORDER.map(k => `<span class="cat-${k}"><i></i>${CAT[k]}<b>${c[k]}</b></span>`).join("")}</div>
     </section>
 
     ${active ? "" : `
     <section class="card summary">
-      <div class="sec-h"><h2>오늘의 요약</h2></div>
+      <div class="sec-h"><h2>${REG[state.region]} 요약</h2></div>
       <p>${esc(overview[0].trim())}</p>
       ${overview[1] ? `<div class="sales"><b>영업 관점</b><p>${esc(overview[1].trim())}</p></div>` : ""}
     </section>
@@ -321,12 +343,12 @@ function render(){
       <ul class="keylist card">${key.map(a => `<li class="cat-${esc(a.category)}"><a href="#${esc(a.id)}"><span class="tag">${CAT[a.category]}</span><span class="t">${esc(a.title_ko)}</span><span class="s">${esc(a.sales_note || a.summary_ko)}</span></a></li>`).join("")}</ul>
     </section>` : ""}`}
 
-    <section id="pulse">
-      <div class="sec-h"><h2>국가별 정세</h2><span class="n">${d.countries_pulse.length}곳</span><span class="hint">행을 누르면 해당 국가 기사만</span></div>
+    ${showPulse ? `<section id="pulse">
+      <div class="sec-h"><h2>국가별 정세</h2><span class="n">${d.countries_pulse.length}곳</span><span class="hint">행을 누르면 해외·국내 통틀어 해당 국가 기사</span></div>
       <div class="card tbl-wrap"><table class="pulse">
         <thead><tr><th>국가</th><th>기조</th><th>오늘의 신호</th><th style="text-align:right">기사</th></tr></thead>
         <tbody>${pulseRows}</tbody></table></div>
-    </section>
+    </section>` : ""}
 
     ${active ? `<div class="filterbar"><span>필터: <b>${esc(filterLabel)}</b> — ${list.length}건</span><button id="clear">필터 해제</button></div>` : ""}
 
@@ -341,6 +363,11 @@ function render(){
     const pick = () => { state.country = state.country === tr.dataset.c ? null : tr.dataset.c; render(); document.getElementById("pulse").scrollIntoView(); };
     tr.onclick = pick;
     tr.onkeydown = e => { if(e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); } };
+  });
+  document.querySelectorAll(".regions button").forEach(b => b.onclick = () => {
+    state.region = b.dataset.r; state.cat = null; state.country = null;
+    try{ localStorage.setItem("nnd-region", state.region); }catch(e){}
+    render();
   });
   const clr = $("#clear"); if(clr) clr.onclick = () => { state.cat = null; state.country = null; state.imp = false; state.q = ""; $("#q").value = ""; $("#imp").checked = false; render(); };
 }

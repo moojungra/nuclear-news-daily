@@ -11,7 +11,8 @@
       "required": ["from", "to"],
       "properties": { "from": { "type": "string" }, "to": { "type": "string" } }
     },
-    "overview_ko": { "type": "string" },
+    "overview_ko": { "type": "string", "description": "해외 요약" },
+    "domestic_overview_ko": { "type": "string", "description": "국내 요약" },
     "countries_pulse": {
       "type": "array",
       "items": {
@@ -39,6 +40,7 @@
           "source": { "type": "string" },
           "url": { "type": "string", "format": "uri" },
           "published": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "region": { "enum": ["overseas", "domestic"], "description": "없으면 overseas로 간주" },
           "category": { "enum": ["large", "smr", "policy", "fuel"] },
           "countries": { "type": "array", "items": { "type": "string" } },
           "importance": { "enum": [1, 2, 3] },
